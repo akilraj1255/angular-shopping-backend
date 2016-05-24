@@ -55,4 +55,16 @@ class PagesController extends AppController {
 			return json_encode(array('error' => 'Page could not be deleted. Please, try again.'));
 		}
 	}
+
+	public function admin_setstatus($id = null, $status = null) {
+		$this->Page->id = $id;
+		if (!$this->Page->exists()) {
+			throw new NotFoundException(__('Invalid Page'));
+		}
+		if ($this->Page->save(array('status_id' => $status))) {
+			return json_encode(array('success' => 'Page has been saved.'));
+		} else {
+			return json_encode(array('error' => 'Page could not be saved. Please, try again.'));
+		}
+	}
 }
